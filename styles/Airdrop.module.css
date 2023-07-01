@@ -70,11 +70,11 @@
 }
 
 .button:hover {
-    background-color: #45a049;
+    background-color: #0e74c8;
 }
 
 .button:disabled {
-    background-color: #ccc;
+    background-color: #2196F3;
     cursor: not-allowed;
 }
 
@@ -213,6 +213,7 @@
 
 .button {
     display: flex;
+    background-color: #2196F3;
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
@@ -221,7 +222,6 @@
     font-family: "Fira Code", monospace;
     font-size: 16px;
     border-radius: 11px;
-    transition: background-color 0.2s;
 }
 
 .card:hover,
