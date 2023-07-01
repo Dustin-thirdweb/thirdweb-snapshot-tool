@@ -75,6 +75,37 @@
     max-width: 1200px;
 }
 
+.previewContainer {
+    margin-top: 20px;
+}
+
+.previewTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    background-color: transparent;
+}
+
+.previewTable th,
+.previewTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.previewTable th {
+    font-weight: bold;
+}
+
+.chainSelector{
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 4px;
+    width: 100%;
+    border-color: transparent;
+    background-color: #202425;
+  }
+
 .inputStyle {
     width: 100%;
     padding: 12px 20px;
