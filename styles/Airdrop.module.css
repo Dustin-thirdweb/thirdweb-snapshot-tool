@@ -29,6 +29,92 @@
     font-size: 4rem;
 }
 
+.networkSelector {
+    margin-bottom: 16px;
+}
+
+.label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.buttonContainer {
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+
+.addressColumn {
+    text-align: left;
+}
+
+.balanceColumn {
+    text-align: right;
+}
+
+.addressCell {
+    text-align: left;
+}
+
+.balanceCell {
+    text-align: right;
+}
+
+.input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 8px;
+}
+
+.button:hover {
+    background-color: #45a049;
+}
+
+.button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.loadMoreContainer {
+    text-align: center;
+    margin-top: 16px;
+}
+
+.loadMoreButton {
+    background-color: #2196F3;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.loadMoreButton:hover {
+    background-color: #1e87db;
+}
+
+
+.addressTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 16px;
+}
+
+.addressTable th,
+.addressTable td {
+    padding: 8px;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+}
+
+.addressTable th {
+    background-color: transparent;
+    font-weight: bold;
+}
+
 .title,
 .description {
     text-align: center;
@@ -75,6 +161,37 @@
     max-width: 1200px;
 }
 
+.previewContainer {
+    margin-top: 20px;
+}
+
+.previewTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    background-color: transparent;
+}
+
+.previewTable th,
+.previewTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.previewTable th {
+    font-weight: bold;
+}
+
+.chainSelector {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 4px;
+    width: 100%;
+    border-color: transparent;
+    background-color: #202425;
+}
+
 .inputStyle {
     width: 100%;
     padding: 12px 20px;
@@ -100,11 +217,10 @@
     align-items: center;
     justify-content: space-around;
     width: 560px;
-    max-width: 100%;
     height: 48px;
     font-family: "Fira Code", monospace;
     font-size: 16px;
-    border-radius: 8px;
+    border-radius: 11px;
     transition: background-color 0.2s;
 }
 
