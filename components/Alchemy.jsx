@@ -16,6 +16,9 @@ const NetworkSelector = () => {
   const [tokenId, setTokenId] = useState('5');
   const [isLoadingConnect, setIsLoadingConnect] = useState(false); // State for Connect button loading
   const [isLoadingFetch, setIsLoadingFetch] = useState(false); // State for Fetch Holders button loading
+  const [isConnected, setIsConnected] = useState(false); // State for connection status
+  const [isGeneratingSnapshot, setIsGeneratingSnapshot] = useState(false); // State for generating snapshot
+
   const sdk = new ThirdwebSDK(selectedChain);
 
   const handleNetworkChange = (event) => {
@@ -66,6 +69,7 @@ const NetworkSelector = () => {
     try {
       const alchemyInstance = new Alchemy(settings);
       setAlchemy(alchemyInstance);
+      setIsConnected(true); // Set connected state to true
     } catch (error) {
       console.error('Error connecting:', error);
       // Handle the error (e.g., display an error message)
@@ -91,6 +95,8 @@ const NetworkSelector = () => {
         network: selectedNetwork,
       };
       const alchemy = new Alchemy(config);
+
+      setIsGeneratingSnapshot(true); // Set generating snapshot state to true
 
       if (erc === 'erc1155') {
         addresses = (
@@ -121,17 +127,31 @@ const NetworkSelector = () => {
       // Handle the error (e.g., display an error message)
     } finally {
       setIsLoadingFetch(false); // Set loading state to false
+      setIsGeneratingSnapshot(false); // Set generating snapshot state to false
     }
-  };
-
-
-  const handleChange = (event) => {
-    const value = event.target.value;
-    setAddress(value);
   };
 
   const loadMoreAddresses = () => {
     setShowMore(true);
+  };
+
+  const exportSnapshotToCSV = () => {
+    const csvRows = [];
+    csvRows.push(['Address', 'MaxClaimable']);
+
+    for (const address of owners.owners) {
+      const maxClaimable = owners.balanceMap[address];
+      csvRows.push([address, maxClaimable]);
+    }
+
+    const csvData = csvRows.map(row => row.join(',')).join('\n');
+    const csvBlob = new Blob([csvData], { type: 'text/csv' });
+    const csvUrl = URL.createObjectURL(csvBlob);
+    const link = document.createElement('a');
+    link.href = csvUrl;
+    link.download = 'snapshot.csv';
+    link.click();
+    URL.revokeObjectURL(csvUrl);
   };
 
   return (
@@ -175,22 +195,24 @@ const NetworkSelector = () => {
 
       <div className={styles.buttonContainer}>
         <button
-          onClick={handleConnect}
+          onClick={isLoadingConnect ? undefined : (isConnected ? getList : handleConnect)}
           className={`${styles.button} ${isLoadingConnect ? styles.loading : ''}`}
-          disabled={isLoadingConnect}
+          disabled={isLoadingConnect || (isLoadingFetch && isGeneratingSnapshot)}
         >
-          {isLoadingConnect ? 'Connecting...' : 'Connect'}
+          {isLoadingConnect ? 'Connecting...' : (isConnected ? 'Fetch Holders' : 'Connect')}
         </button>
-
-        <button
-          onClick={getList}
-          className={`${styles.button} ${isLoadingFetch ? styles.loading : ''}`}
-          disabled={isLoadingFetch}
-        >
-          {isLoadingFetch ? 'Fetching Holders...' : 'Fetch Holders'}
-        </button>
+        {isLoadingFetch && isGeneratingSnapshot && (
+          <div className={styles.loadingAnimation}>Generating snapshot...</div>
+        )}
+        {fetchedOwners && !isLoadingFetch && (
+          <button
+            onClick={exportSnapshotToCSV}
+            className={styles.exportButton}
+          >
+            Export Snapshot
+          </button>
+        )}
       </div>
-
 
       <table className={styles.addressTable}>
         <thead>
