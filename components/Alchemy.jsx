@@ -137,7 +137,7 @@ const NetworkSelector = () => {
 
   const exportSnapshotToCSV = () => {
     const csvRows = [];
-    csvRows.push(['Address', 'MaxClaimable']);
+    csvRows.push(['address', 'maxClaimable']);
 
     for (const address of owners.owners) {
       const maxClaimable = owners.balanceMap[address];
@@ -202,7 +202,7 @@ const NetworkSelector = () => {
           {isLoadingConnect ? 'Connecting...' : (isConnected ? 'Fetch Holders' : 'Connect')}
         </button>
         {isLoadingFetch && isGeneratingSnapshot && (
-          <div className={styles.loadingAnimation}>Generating snapshot...</div>
+          <div className={styles.loadingAnimation}>Generating snapshot... This could take a few moments...</div>
         )}
         {fetchedOwners && !isLoadingFetch && (
           <button
